@@ -12,14 +12,14 @@ public class LoanCalc {
 		System.out.print("Periodical payment, using brute force: ");
 		System.out.printf("%.2f", bruteForceSolver(loan, rate, n, epsilon));
 		System.out.println();
-		System.out.println("number of iterations (brute force): " + iterationCounter);
+		System.out.println("number of iterations: " + iterationCounter);
 
 		iterationCounter = 0;  // Resetting the iteration counter to 0
 		
 		System.out.print("Periodical payment, using bi-section search: ");
 		System.out.printf("%.2f", bisectionSolver(loan, rate, n, epsilon));
 		System.out.println();
-		System.out.println("number of iterations (bi-section search): " + iterationCounter);
+		System.out.println("number of iterations: " + iterationCounter);
 	}
 
 	// Side effect: modifies the class variable iterationCounter.
