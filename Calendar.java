@@ -27,6 +27,11 @@ public class Calendar {
             if (dayOfMonth == 1 && dayOfWeek == 1 && year != 1900) {
                 System.out.println();
             }
+            if( dayOfMonth == 31 && month == 12){
+                System.out.println(dayOfMonth + "/" + month + "/" + givenYear);
+                break;
+                
+            }
         }
     }
 
