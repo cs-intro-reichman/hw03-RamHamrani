@@ -15,7 +15,7 @@ public class Calendar {
         int givenYear = Integer.parseInt(args[0]);
 
         while (year <= givenYear) {
-            if (dayOfMonth == 1 && dayOfWeek == 7) {
+            if (dayOfWeek == 1) {
                 System.out.println(dayOfMonth + "/" + month + "/" + givenYear + " Sunday");
             } else {
                 System.out.println(dayOfMonth + "/" + month + "/" + givenYear);
@@ -24,8 +24,8 @@ public class Calendar {
             advance();
             debugDaysCounter++;
 
-            if (dayOfMonth == 1 && dayOfWeek == 1 && year != 1900) {
-                System.out.println();
+            if (dayOfWeek == 1 && year != 1900) {
+                 System.out.println(dayOfMonth + "/" + month + "/" + givenYear + " Sunday");
             }
             if( dayOfMonth == 31 && month == 12){
                 System.out.println(dayOfMonth + "/" + month + "/" + givenYear);
@@ -82,6 +82,6 @@ public class Calendar {
 
     // Returns true if the given year is a leap year, false otherwise.
     private static boolean isLeapYear(int year) {
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        return (year % 4 == 0 && (year % 100 == 0 && year % 400 == 0));
     }
 }
