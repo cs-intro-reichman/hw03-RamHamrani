@@ -27,7 +27,7 @@ public class Calendar {
             advance();
 
            
-            if (dayOfMonth == 31 && month == 12 && year == givenYear) {
+            if (dayOfMonth > 31 && month == 12 && year == givenYear) {
                 break;
             }
         }
