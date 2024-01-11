@@ -1,21 +1,24 @@
+
 public class Calendar {
-    // Starting the calendar on 1/1/1900
     static int dayOfMonth = 1;
     static int month = 1;
     static int year = 1900;
-    static int dayOfWeek = 2;      // 1.1.1900 was a Monday
-    static int nDaysInMonth = 31;  // Number of days in January
+    static int dayOfWeek = 1; // 1.1.1900 was a Monday (0=Sunday, 1=Monday, ...)
+    static int nDaysInMonth = 31; // Number of days in January
 
-    /**
-     * Prints all days of the given year and indicates whether it's a Sunday.
-     */
     public static void main(String args[]) {
         int givenYear = Integer.parseInt(args[0]);
 
+        // Only process years greater than 1900
+        if (givenYear <= 1900) {
+            System.out.println("Year must be greater than 1900.");
+            return;
+        }
+
         while (year <= givenYear) {
             String dayString = dayOfMonth + "/" + month + "/" + givenYear;
-            
-            if (dayOfWeek == 1) {
+           
+            if (dayOfWeek == 0) {
                 dayString += " Sunday";
             }
 
@@ -23,64 +26,43 @@ public class Calendar {
 
             advance();
 
-            if (dayOfWeek == 1 && year != 1900) {
-                System.out.println();
-            }
-
-            if (dayOfMonth == 31 && month == 12) {
-                System.out.println(dayOfMonth + "/" + month + "/" + givenYear);
+           
+            if (dayOfMonth == 31 && month == 12 && year == givenYear) {
                 break;
             }
         }
     }
 
-    // Advances the date (day, month, year) and the day-of-the-week.
-    // If the month changes, sets the number of days in this month.
-    // Side effects: changes the static variables dayOfMonth, month, year, dayOfWeek, nDaysInMonth.
     private static void advance() {
-        dayOfWeek = (dayOfWeek % 7) + 1;
+        dayOfWeek = (dayOfWeek + 1) % 7;
 
-        if (dayOfMonth == nDaysInMonth) {
+        dayOfMonth++;
+
+        if (dayOfMonth > nDaysInMonth) {
             dayOfMonth = 1;
+            month++;
 
             if (month > 12) {
                 month = 1;
                 year++;
-
-                if (isLeapYear(year)) {
-                    nDaysInMonth = 29;
-                } else {
-                    nDaysInMonth = 28;
-                }
-            } else {
-                month++;
-
-                switch (month) {
-                    case 4:
-                    case 6:
-                    case 9:
-                    case 11:
-                        nDaysInMonth = 30;
-                        break;
-                    case 2:
-                        if (isLeapYear(year)) {
-                            nDaysInMonth = 29;
-                        } else {
-                            nDaysInMonth = 28;
-                        }
-                        break;
-                    default:
-                        nDaysInMonth = 31;
-                        break;
-                }
             }
-        } else {
-            dayOfMonth++;
+
+            setDaysInMonth();
         }
     }
 
-    // Returns true if the given year is a leap year, false otherwise.
+    private static void setDaysInMonth() {
+        if (month == 2) {
+            nDaysInMonth = isLeapYear(year) ? 29 : 28;
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            nDaysInMonth = 30;
+        } else {
+            nDaysInMonth = 31;
+        }
+    }
+
     private static boolean isLeapYear(int year) {
         return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
     }
 }
+
