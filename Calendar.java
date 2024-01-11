@@ -7,30 +7,29 @@ public class Calendar {
     static int nDaysInMonth = 31;  // Number of days in January
 
     /**
-     * Prints the calendars of all the years in the 20th century. Also prints the
-     * number of Sundays that occurred on the first day of the month during this period.
+     * Prints all days of the given year and indicates whether it's a Sunday.
      */
     public static void main(String args[]) {
-        int debugDaysCounter = 0; // For debugging purposes
         int givenYear = Integer.parseInt(args[0]);
 
         while (year <= givenYear) {
+            String dayString = dayOfMonth + "/" + month + "/" + givenYear;
+            
             if (dayOfWeek == 1) {
-                System.out.println(dayOfMonth + "/" + month + "/" + givenYear + " Sunday");
-            } else {
-                System.out.println(dayOfMonth + "/" + month + "/" + givenYear);
+                dayString += " Sunday";
             }
+
+            System.out.println(dayString);
 
             advance();
-            debugDaysCounter++;
 
             if (dayOfWeek == 1 && year != 1900) {
-                 System.out.println(dayOfMonth + "/" + month + "/" + givenYear + " Sunday");
+                System.out.println();
             }
-            if( dayOfMonth == 31 && month == 12){
+
+            if (dayOfMonth == 31 && month == 12) {
                 System.out.println(dayOfMonth + "/" + month + "/" + givenYear);
                 break;
-                
             }
         }
     }
@@ -44,7 +43,7 @@ public class Calendar {
         if (dayOfMonth == nDaysInMonth) {
             dayOfMonth = 1;
 
-            if (month == 12) {
+            if (month > 12) {
                 month = 1;
                 year++;
 
@@ -82,6 +81,6 @@ public class Calendar {
 
     // Returns true if the given year is a leap year, false otherwise.
     private static boolean isLeapYear(int year) {
-        return (year % 4 == 0 && (year % 100 == 0 && year % 400 == 0));
+        return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
     }
 }
